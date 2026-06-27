@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sales Order — From Request to Margin-Controlled Fulfilment</title>
+<style>
+@page { size: 8.5in 11in; margin: .72in; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #17211f; background: #fff; font-size: 10.5pt; line-height: 1.48; }
+h1, h2, h3 { color: #005f50; page-break-after: avoid; }
+h1 { font-size: 25pt; line-height: 1.05; margin: 0 0 12pt; letter-spacing: -.5pt; }
+h2 { font-size: 17pt; margin: 24pt 0 8pt; padding-top: 6pt; border-top: 2px solid #cbe4df; }
+h3 { font-size: 12pt; margin: 14pt 0 5pt; }
+p { margin: 0 0 8pt; }
+ul, ol { margin: 4pt 0 10pt 18pt; padding: 0; }
+li { margin: 0 0 4pt; }
+a { color: #007f6d; text-decoration: none; }
+.cover { page-break-after: always; min-height: 9.4in; display: flex; flex-direction: column; justify-content: space-between; padding: .15in 0; }
+.kicker { color: #007f6d; font-weight: bold; letter-spacing: 1.2px; text-transform: uppercase; font-size: 9pt; }
+.subtitle { font-size: 15pt; color: #485a56; max-width: 5.8in; margin-bottom: 24pt; }
+.hero-rule { height: 8px; background: linear-gradient(90deg,#005f50,#20a78e,#d7eee9); margin: 24pt 0; }
+.meta { color: #60716d; font-size: 9pt; }
+.lead { font-size: 13pt; line-height: 1.42; color: #304440; }
+.callout { background: #edf7f5; border-left: 5px solid #00947d; padding: 11pt 13pt; margin: 12pt 0; page-break-inside: avoid; }
+.caution { background: #fff7e8; border-left-color: #bd7410; }
+.label { color: #007f6d; font-size: 8.5pt; font-weight: bold; text-transform: uppercase; letter-spacing: .7px; }
+.section { page-break-before: always; }
+.figure { margin: 14pt 0 18pt; page-break-inside: avoid; }
+.figure img { display: block; max-width: 100%; max-height: 6.4in; margin: 0 auto; border: 1px solid #ccd9d6; }
+.figure.mobile img { max-height: 6.8in; }
+.caption { margin-top: 6pt; color: #53645f; font-size: 8.5pt; line-height: 1.35; }
+.caption b { color: #253a35; }
+table { width: 100%; border-collapse: collapse; margin: 10pt 0 14pt; font-size: 9pt; page-break-inside: avoid; }
+th { background: #e5f2ef; color: #004f43; text-align: left; padding: 7pt; border: 1px solid #bdcfcb; }
+td { padding: 7pt; border: 1px solid #d4dfdc; vertical-align: top; }
+.flow { background: #f5f8f7; border: 1px solid #cbd9d6; padding: 10pt; text-align: center; font-weight: bold; color: #24544b; page-break-inside: avoid; }
+.small { font-size: 8.5pt; color: #60716d; }
+.footer-note { border-top: 1px solid #ccd9d6; padding-top: 8pt; color: #60716d; font-size: 8.5pt; }
+.avoid { page-break-inside: avoid; }
+</style>
+</head>
+<body>
+
+<section class="cover">
+  <div>
+    <div class="kicker">Product case study · Sales operations · 2024–2026 design evolution</div>
+    <div class="hero-rule"></div>
+    <h1>Sales Order:<br>from request to margin-controlled fulfilment</h1>
+    <p class="subtitle">A unified case study of the PRO and OS journeys—showing how a fragmented sales-order lifecycle evolved into a role-aware operating system for triage, commercial control, approvals, and downstream fulfilment.</p>
+    <div class="callout">
+      <div class="label">Executive takeaway</div>
+      <p class="lead">The design moved the Sales Order from being a record to being a control point: field teams gain fast status visibility, while operations teams gain structured margin inputs, ownership, approvals, and traceability across purchase and fulfilment entities.</p>
+    </div>
+  </div>
+  <div>
+    <p class="meta"><b>Evidence base:</b> six supplied Figma frames across Sales Order PRO v1, OS v1–v3, and final Sales Order v2 designs.</p>
+    <p class="meta"><b>Evidence standard:</b> interface facts are stated directly; rationale and expected impact are identified as design inference. No production metrics or user-research claims were supplied.</p>
+  </div>
+</section>
+
+<section>
+  <h2>1. Overview</h2>
+  <p class="lead">Sales Order sits between demand capture and operational execution. The journey has to serve two very different contexts: a mobile user scanning and acting on orders in the field, and a desktop operator managing high-density commercial and fulfilment decisions.</p>
+  <p>The supplied designs show three generations of the workflow. PRO v1 establishes a compact, status-led mobile queue. OS v1 introduces an operational worklist organised around expected margin and approval states. OS v2 adds a focused margin calculator. OS v3 expands the order overview into connected purchase-order, procurement-agent, supplier, warehouse, quantity, and margin views. The final v2 screens align the two surfaces around shared status language and clearer role ownership.</p>
+  <table>
+    <tr><th>Surface</th><th>Primary job</th><th>Evidence in supplied screens</th></tr>
+    <tr><td>PRO mobile</td><td>Find, interpret, and act on an order quickly</td><td>Search, lifecycle tabs, compact cards, status chips, location, quantity, requested date, bottom navigation</td></tr>
+    <tr><td>OS desktop</td><td>Control margin, approvals, ownership, and fulfilment at scale</td><td>Operational tabs, dense worklist, filters, margin calculator, mapped PO/PA/supplier/warehouse views</td></tr>
+    <tr><td>Shared lifecycle</td><td>Keep field and operations aligned on the same order state</td><td>SO Requested, Margin Added/Modify Margin, VP Approved, In Progress, To Complete, Completed, Rejected</td></tr>
+  </table>
+  <div class="figure mobile">
+    <img src="../assets/pro-v1-in-review.png" alt="PRO v1 mobile Sales Order in-review queue">
+    <p class="caption"><b>Figure 1 — PRO v1, In Review.</b> The first mobile model is a scan-first queue built around search, lifecycle tabs, business identity, status, commodity, quantity, location, and request date. <a href="https://www.figma.com/design/DmtmpGeRwhxznbpFdJNV0K/Sales-Order-_-Pro_v1?node-id=135-14461">Figma node 135:14461</a>.</p>
+  </div>
+</section>
+
+<section class="section">
+  <h2>2. Problem</h2>
+  <p>The product problem was not simply “create a sales-order screen.” The interface had to make a cross-functional workflow legible while preserving the detail needed for commercial control.</p>
+  <div class="callout caution">
+    <div class="label">Uncomfortable constraint</div>
+    <p>A single universal screen would fail. Mobile users need decisive summaries and obvious next actions; desktop operators need dense comparison, filters, structured inputs, and auditability. The solution therefore needs one lifecycle model expressed through two interaction models.</p>
+  </div>
+  <h3>Observed workflow risks</h3>
+  <ul>
+    <li><b>Status ambiguity:</b> an order can be requested, priced, margin-assessed, approved, modified, progressed, completed, or rejected.</li>
+    <li><b>Commercial risk:</b> gross price alone does not expose delivered cost, supplier terms, pending recovery, payable days, expected margin, or return on capital.</li>
+    <li><b>Ownership risk:</b> created-by, booked-by, procurement-agent, supplier, and warehouse actors all participate in the outcome.</li>
+    <li><b>Scale risk:</b> desktop users must compare many orders without opening each record; mobile users must avoid a spreadsheet compressed into 360 pixels.</li>
+    <li><b>Handoff risk:</b> status changes must remain understandable across PRO and OS, or teams will create parallel interpretations outside the product.</li>
+  </ul>
+  <div class="figure">
+    <img src="../assets/os-v1-add-margin.png" alt="OS v1 desktop Sales Order worklist">
+    <p class="caption"><b>Figure 2 — OS v1, Add Expected Margin.</b> The desktop worklist exposes the operational density of the problem: lifecycle tabs, buyer and order context, price, quantity, ETA, repayment terms, ownership, status, and action. <a href="https://www.figma.com/design/FNLFAkEvHsfPlM7t5JWPhe/Sales-Order-_-OS_v1?node-id=2306-76807">Figma node 2306:76807</a>.</p>
+  </div>
+</section>
+
+<section class="section">
+  <h2>3. Goals</h2>
+  <ol>
+    <li><b>Create one understandable lifecycle.</b> Make order state and the next responsible action visible across mobile and desktop.</li>
+    <li><b>Protect commercial quality.</b> Bring expected margin, delivered price, supplier allocation, recovery, and payable terms into the decision before approval.</li>
+    <li><b>Reduce navigation cost.</b> Let users locate an order by buyer, ID, or SO number and segment queues by lifecycle state or owner.</li>
+    <li><b>Support role-specific depth.</b> Keep PRO concise while allowing OS to expose operational detail without hiding critical context.</li>
+    <li><b>Improve traceability.</b> Preserve who created, booked, modified, supplied, procured, and fulfilled the order.</li>
+  </ol>
+  <p class="small"><b>Decision basis:</b> These goals are inferred from repeated information architecture and controls in the supplied Figma frames. They are not quoted from a provided PRD.</p>
+
+  <h2>4. Research</h2>
+  <p>No interview notes, analytics, support logs, usability reports, or formal PRD were present in the workspace or supplied links. A publication-quality case study should not invent them. The research section is therefore framed as a design-evidence synthesis.</p>
+  <h3>Evidence reviewed</h3>
+  <ul>
+    <li>Mobile queue structures, order-card hierarchy, status vocabulary, and primary navigation.</li>
+    <li>Desktop worklist columns, filters, lifecycle tabs, actions, and pagination.</li>
+    <li>Margin-calculation inputs and validation states.</li>
+    <li>Order-overview relationships between SO, PO, procurement agent, supplier, warehouse, quantity, price, and margin.</li>
+    <li>Changes between v1, iterative OS designs, and final v2 PRO/OS outputs.</li>
+  </ul>
+  <div class="callout">
+    <div class="label">Recommended validation plan</div>
+    <p>Validate the inferred model with five roles: field sales, sales operations, procurement agent, approver/VP, and finance. Measure time-to-find, time-to-margin submission, correction rate, approval turnaround, and status-interpretation accuracy.</p>
+  </div>
+</section>
+
+<section class="section">
+  <h2>5. Insights</h2>
+  <h3>Insight 1 — Status is the primary navigation model</h3>
+  <p>Both surfaces segment work by lifecycle state. This is stronger than a generic “all orders” list because it maps navigation to the user’s current responsibility: add margin, approve margin, assess risk, progress, complete, or review rejection.</p>
+  <h3>Insight 2 — Margin is a workflow, not a field</h3>
+  <p>The calculator requires assignment, quantity, delivered price, estimated margin, optional supplier, pending recovery, and payable days. Save and Submit are separate actions. This indicates that margin assessment is collaborative, iterative, and validation-dependent.</p>
+  <h3>Insight 3 — Context must stay visible during commercial decisions</h3>
+  <p>The calculator holds commodity, SO quantity, repayment period, gross price, net price, margin, and ROCE beside the input table. Users can assess changes without leaving the task or relying on memory.</p>
+  <h3>Insight 4 — The order becomes a relationship hub after approval</h3>
+  <p>The overview connects mapped purchase orders, procurement agents, suppliers, warehouses, delivery-order counts, quantities, prices, and margins. The post-approval problem is therefore coordination and variance control, not just record lookup.</p>
+  <h3>Insight 5 — Mobile needs exception visibility</h3>
+  <p>The final PRO card adds a prominent “Requested for change” banner and an explicit “Modify Price” action. This elevates exceptions above normal status scanning and reduces the risk of silently stalled orders.</p>
+  <div class="figure">
+    <img src="../assets/os-v2-journey.png" alt="OS margin calculator modal">
+    <p class="caption"><b>Figure 3 — OS v2, Margin Calculator.</b> Commercial context remains fixed on the left while structured allocation inputs and validation-driven actions occupy the main task area. <a href="https://www.figma.com/design/FNLFAkEvHsfPlM7t5JWPhe/Sales-Order-_-OS_v1?node-id=6867-112478">Figma node 6867:112478</a>.</p>
+  </div>
+</section>
+
+<section class="section">
+  <h2>6. Information Architecture</h2>
+  <p>The architecture separates <b>queue management</b>, <b>commercial decisioning</b>, and <b>fulfilment visibility</b> while preserving a common Sales Order identity.</p>
+  <table>
+    <tr><th>Layer</th><th>Key objects</th><th>Primary questions</th></tr>
+    <tr><td>Queue</td><td>Order, buyer, status, owner, date, commodity, quantity</td><td>What needs attention? Who owns it? What happens next?</td></tr>
+    <tr><td>Commercial decision</td><td>Gross/net price, delivered cost, margin, ROCE, supplier, recovery, payable days</td><td>Is the order economically acceptable? What assumptions drive the result?</td></tr>
+    <tr><td>Approval</td><td>Margin approval, risk approval, modification request</td><td>Is the decision authorised? What changed?</td></tr>
+    <tr><td>Fulfilment</td><td>PO, procurement agent, supplier, warehouse, DO count, quantity, actual vs expected</td><td>How is the order being executed? Where is variance emerging?</td></tr>
+  </table>
+  <div class="flow">Sales Order queue → Order context → Margin allocation → Approval / modification → Mapped PO → Supplier &amp; PA execution → Warehouse fulfilment → Completion</div>
+  <p class="small">Relevant screens: Figures 1–6. The queue appears in PRO v1 and final v2; margin decisioning in OS v1/v2; fulfilment architecture in OS v3.</p>
+</section>
+
+<section class="section">
+  <h2>7. User Flow</h2>
+  <h3>Primary journey</h3>
+  <ol>
+    <li>A Sales Order request enters the <b>In Review / Add Margin</b> queue.</li>
+    <li>The operator finds it using buyer name, buyer ID, or SO number; optional owner filters narrow the workload.</li>
+    <li>The operator opens <b>Add Margin</b> and reviews commodity, quantity, repayment terms, and gross/net price.</li>
+    <li>One or more procurement-agent allocations are added with quantity, delivered price, estimated margin, and optional supplier/financial terms.</li>
+    <li>The system preserves a draft through <b>Save</b>; <b>Submit</b> remains unavailable until required inputs are valid.</li>
+    <li>The order moves through margin and risk approval. Exceptions return as a visible modification request.</li>
+    <li>After approval, users monitor mapped POs, procurement agents, suppliers, warehouses, quantities, prices, delivery-order counts, and margin variance.</li>
+    <li>The order progresses to completion or rejection, with state visible on both PRO and OS.</li>
+  </ol>
+  <h3>Exception journey</h3>
+  <div class="flow">Requested for change → Identify affected price/margin → Modify Price / Edit Margin → Re-submit → Re-approval</div>
+  <p>This explicit loop is important: commercial workflows rarely move linearly, and hiding revision states inside generic “In Progress” would create operational ambiguity.</p>
+</section>
+
+<section class="section">
+  <h2>8. Design Process</h2>
+  <h3>Iteration 1 — Establish the lifecycle language</h3>
+  <p>PRO v1 uses tabs and coloured status chips to make state scannable. The card compresses identity, commodity, quantity, location, and date into a repeatable mobile unit.</p>
+  <h3>Iteration 2 — Turn the desktop list into an operational queue</h3>
+  <p>OS v1 introduces tabs aligned to business actions, a searchable high-density table, owner filtering, contextual statuses, and row-level actions such as Add Margin, Edit Draft, and Edit Margin.</p>
+  <h3>Iteration 3 — Isolate the high-risk decision</h3>
+  <p>The margin calculator moves the most consequential inputs into a dedicated modal. The layout prioritises focused completion, keeps source context visible, supports multiple allocations, and separates drafting from submission.</p>
+  <h3>Iteration 4 — Extend visibility beyond approval</h3>
+  <p>OS v3 reframes the order detail as an execution overview. It surfaces actual versus expected margin and connects mapped POs, procurement agents, suppliers, and warehouses.</p>
+  <h3>Iteration 5 — Align final PRO and OS</h3>
+  <p>The final v2 designs sharpen exception handling and responsibility. PRO adds a requested-change banner and mobile action; OS adds Created by and Booked by filters and retains explicit lifecycle counts.</p>
+</section>
+
+<section class="section">
+  <h2>9. Final Solution</h2>
+  <p>The final system is a shared sales-order lifecycle with role-appropriate presentation:</p>
+  <ul>
+    <li><b>PRO:</b> a narrow, card-based, touch-friendly interface optimised for recognition, exception handling, and fast action.</li>
+    <li><b>OS:</b> a wide, table-based operating surface optimised for comparison, workload segmentation, structured commercial input, and downstream control.</li>
+    <li><b>Shared semantics:</b> consistent order identity, status vocabulary, quantity, commodity, ownership, and action language.</li>
+  </ul>
+  <div class="figure mobile">
+    <img src="../assets/v2-pro-final.png" alt="Final v2 PRO mobile Sales Order queue">
+    <p class="caption"><b>Figure 4 — Final v2 PRO.</b> The mobile queue preserves fast scanning while adding exception messaging, explicit price modification, clearer state chips, and persistent product navigation. <a href="https://www.figma.com/design/G1uMKgKgpgMA1jxguMICwO/Sales-Order-__v2?node-id=35-57043">Figma node 35:57043</a>.</p>
+  </div>
+  <div class="figure">
+    <img src="../assets/v2-os-final.png" alt="Final v2 OS Sales Order worklist">
+    <p class="caption"><b>Figure 5 — Final v2 OS.</b> The operational queue aligns lifecycle stages with ownership filters, dense commercial context, explicit actions, and visible queue counts. <a href="https://www.figma.com/design/G1uMKgKgpgMA1jxguMICwO/Sales-Order-__v2?node-id=35-48417">Figma node 35:48417</a>.</p>
+  </div>
+</section>
+
+<section class="section">
+  <h2>10. Screen Walkthrough</h2>
+  <h3>A. Mobile queue and triage</h3>
+  <p>Search handles legal name, trade name, and SO identity. Horizontal lifecycle tabs reduce the active set. Cards use a stable reading order: SO ID and status, buyer, commodity and quantity, location, then requested date. The final design introduces exception context before the normal card content.</p>
+  <h3>B. Desktop worklist</h3>
+  <p>The worklist is tuned for repeated decisions. Columns hold the minimum comparison set: request date, SO identity, buyer, net price, quantity, ETA, repayment, ownership, status, and action. Queue tabs and counts expose workload distribution.</p>
+  <h3>C. Margin calculator</h3>
+  <p>The modal anchors immutable order context in a side rail and uses a row model for one-to-many allocation. The gross/net toggle makes the calculation basis explicit. Remaining quantity gives immediate allocation feedback; disabled Submit communicates incomplete requirements without discarding draft work.</p>
+  <h3>D. Post-approval overview</h3>
+  <p>The overview surfaces actual versus expected margin and ideal ROCE, then breaks execution into mapped PO, procurement-agent, supplier, and warehouse levels. This creates a progressive drill-down from order health to the entity causing variance.</p>
+  <div class="figure">
+    <img src="../assets/os-v3-journey.png" alt="OS v3 Sales Order overview">
+    <p class="caption"><b>Figure 6 — OS v3, Sales Order Overview.</b> The approved order becomes an operational control surface linking commercial targets to mapped purchase orders, procurement agents, suppliers, warehouses, quantities, and delivery-order counts. <a href="https://www.figma.com/design/FNLFAkEvHsfPlM7t5JWPhe/Sales-Order-_-OS_v1?node-id=7867-14213">Figma node 7867:14213</a>.</p>
+  </div>
+</section>
+
+<section class="section">
+  <h2>11. Challenges</h2>
+  <table>
+    <tr><th>Challenge</th><th>Design response</th><th>Trade-off</th></tr>
+    <tr><td>One lifecycle, multiple roles</td><td>Shared statuses with card-based PRO and table-based OS</td><td>Cross-platform consistency is semantic rather than visually identical</td></tr>
+    <tr><td>High information density</td><td>Desktop tables, tabs, filters, fixed context, and progressive overview sections</td><td>Power-user efficiency increases onboarding and accessibility demands</td></tr>
+    <tr><td>Margin complexity</td><td>Dedicated calculator with row allocations and visible source context</td><td>A modal focuses work but constrains very large allocation sets</td></tr>
+    <tr><td>Draft versus commitment</td><td>Separate Save and Submit states</td><td>Users need clear draft persistence and recovery expectations</td></tr>
+    <tr><td>Exceptions and rework</td><td>Requested-change banner and explicit modify actions</td><td>Reason history and change comparison are not visible in supplied frames</td></tr>
+    <tr><td>Actual versus expected performance</td><td>Overview-level variance indicators by PA, supplier, and warehouse</td><td>Colour-based signals need accessible text equivalents and thresholds</td></tr>
+  </table>
+  <div class="callout caution">
+    <div class="label">Open design risk</div>
+    <p>The desktop solution relies on dense tables, compact type, muted secondary text, and colour-coded states. Accessibility, keyboard navigation, responsive overflow, and error recovery require explicit validation before calling the experience complete.</p>
+  </div>
+</section>
+
+<section class="section">
+  <h2>12. Results</h2>
+  <p>No production analytics, adoption figures, revenue impact, approval-time change, or usability benchmark was supplied. Therefore the defensible result is the product capability created—not a fabricated percentage improvement.</p>
+  <h3>Demonstrated product outcomes</h3>
+  <ul>
+    <li>A shared lifecycle model exists across PRO and OS.</li>
+    <li>Margin assessment is converted from an implicit judgment into a structured, reviewable task.</li>
+    <li>Drafting, submission, approval, modification, execution, completion, and rejection are represented as distinct states.</li>
+    <li>Order ownership is visible through created-by, booked-by, procurement-agent, supplier, and warehouse relationships.</li>
+    <li>Post-approval performance can be compared against expected margin at multiple operational levels.</li>
+  </ul>
+  <h3>Expected business impact — to validate</h3>
+  <table>
+    <tr><th>Expected impact</th><th>Mechanism</th><th>Recommended KPI</th></tr>
+    <tr><td>Faster operational triage</td><td>Status queues, counts, search, owner filters</td><td>Median time from request to first action</td></tr>
+    <tr><td>Fewer commercial errors</td><td>Structured inputs, remaining quantity, validation, approval states</td><td>Margin correction and re-submission rate</td></tr>
+    <tr><td>Better margin control</td><td>Expected/actual comparison and entity-level drill-down</td><td>Expected-to-actual margin variance</td></tr>
+    <tr><td>Clearer accountability</td><td>Created/booked/PA/supplier/warehouse attribution</td><td>Unowned orders and handoff delay</td></tr>
+    <tr><td>Less offline coordination</td><td>Visible status, exceptions, and mapped fulfilment context</td><td>Support tickets or external follow-ups per SO</td></tr>
+  </table>
+</section>
+
+<section class="section">
+  <h2>13. Future Opportunities</h2>
+  <ol>
+    <li><b>Decision history.</b> Add an auditable timeline of margin edits, approval actions, comments, and reason codes.</li>
+    <li><b>Explain margin variance.</b> Attribute changes to delivered price, supplier allocation, recovery, payable days, or fulfilment mix.</li>
+    <li><b>Scenario comparison.</b> Let operators compare procurement allocations before submitting the preferred plan.</li>
+    <li><b>Risk-based prioritisation.</b> Rank queues by ageing, commercial exposure, margin variance, fulfilment risk, and SLA breach probability.</li>
+    <li><b>Cross-platform deep links.</b> Allow a PRO exception card to open the precise OS decision context for the responsible operator.</li>
+    <li><b>Accessible data density.</b> Add keyboard-first table interaction, stronger contrast, non-colour status cues, and responsive column controls.</li>
+    <li><b>Outcome instrumentation.</b> Capture timestamps and correction events across request, margin, approval, modification, PO mapping, and completion.</li>
+  </ol>
+  <div class="callout">
+    <div class="label">Leadership decision</div>
+    <p>The next investment should not be another visual redesign. It should be instrumentation plus workflow-history depth. Without those, the product can display a sophisticated process but cannot prove where time, margin, or accountability is being lost.</p>
+  </div>
+
+  <h2>Source Index</h2>
+  <ul>
+    <li><a href="https://www.figma.com/design/DmtmpGeRwhxznbpFdJNV0K/Sales-Order-_-Pro_v1?node-id=135-14461">Sales Order PRO v1 — In Review, 135:14461</a></li>
+    <li><a href="https://www.figma.com/design/FNLFAkEvHsfPlM7t5JWPhe/Sales-Order-_-OS_v1?node-id=2306-76807">Sales Order OS v1 — Add Expected Margin, 2306:76807</a></li>
+    <li><a href="https://www.figma.com/design/FNLFAkEvHsfPlM7t5JWPhe/Sales-Order-_-OS_v1?node-id=6867-112478">Sales Order OS v2 — Margin Calculator, 6867:112478</a></li>
+    <li><a href="https://www.figma.com/design/FNLFAkEvHsfPlM7t5JWPhe/Sales-Order-_-OS_v1?node-id=7867-14213">Sales Order OS v3 — SO Overview, 7867:14213</a></li>
+    <li><a href="https://www.figma.com/design/G1uMKgKgpgMA1jxguMICwO/Sales-Order-__v2?node-id=35-57043">Sales Order v2 — Final PRO, 35:57043</a></li>
+    <li><a href="https://www.figma.com/design/G1uMKgKgpgMA1jxguMICwO/Sales-Order-__v2?node-id=35-48417">Sales Order v2 — Final OS, 35:48417</a></li>
+  </ul>
+  <p class="footer-note"><b>Method note:</b> This case study is based on the supplied Figma frames and local workspace inspection on 27 June 2026. Product rationale and expected business effects are clearly separated from directly observable interface evidence. Quantitative claims require validation against production analytics or a formal PRD.</p>
+</section>
+
+</body>
+</html>
