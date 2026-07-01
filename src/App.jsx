@@ -12,6 +12,8 @@ import osV1AddMargin from "../Case Study/SO Lifecycle/assets/os-v1-add-margin.pn
 import osV2Journey from "../Case Study/SO Lifecycle/assets/os-v2-journey.png";
 import proV1InReview from "../Case Study/SO Lifecycle/assets/pro-v1-in-review.png";
 import v2ProFinal from "../Case Study/SO Lifecycle/assets/v2-pro-final.png";
+import { HomePage } from "./HomePage";
+import "./home.css";
 
 const projects = [
   {
@@ -130,6 +132,10 @@ export function App() {
     window.addEventListener("resize", closeMenu);
     return () => window.removeEventListener("resize", closeMenu);
   }, []);
+
+  if (!isCaseStudyPage) {
+    return <HomePage />;
+  }
 
   return (
     <div className={`site-shell ${isCaseStudyPage ? "site-shell--case-study" : ""}`}>
